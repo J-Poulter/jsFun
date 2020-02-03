@@ -70,11 +70,21 @@ const kittyPrompts = {
     // },
     // ...etc]
 
-    const result = kitties.map(cat => 
+    const result = kitties.map(cat => {
+      return {
+        name: cat.name,
+        age: cat.age += 2,
+        color: cat.color
+      };
+    }).sort((a, b) => b.age - a.age);
     return result;
   }
 };
-
+  /*Access the kitties array and return an array of the same length, with the same objects but with the age property modified.
+    Since we want an array of the same length, reach for map.
+    Specify to mutate the age property and return the object.
+    The test is looking for the cats to be arranged by age in descending order, so reach for sort to rearrange the objects.
+  */
 
 
 
