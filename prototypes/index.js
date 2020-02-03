@@ -112,7 +112,9 @@ const clubPrompts = {
     //   ...etc
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = clubs.reduce((acc, club) => {
+      acc[club].name;
+    },{});
     return result;
 
     // Annotation:
@@ -148,11 +150,21 @@ const modPrompts = {
     //   { mod: 4, studentsPerInstructor: 8 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = mods.map(el => {
+      return {
+        mod: el.mod,
+        studentsPerInstructor: el.students / el.instructors
+      };
+    });
     return result;
 
     // Annotation:
     // Write your annotation here as a comment
+    /*
+    Reach for map over mods array to get back an array of the same length.
+    Within the function, specifiy to return an object with the same mod property/value and second property called studentsPerInstructor.
+    Set the value of this second property to be equal to the number of students divided by total instructors.
+    */
   }
 };
 
