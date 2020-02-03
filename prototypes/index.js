@@ -234,11 +234,16 @@ const cakePrompts = {
     // ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.filter(cake => {
+      return (cake.inStock > 0);
+    });
     return result;
 
     // Annotation:
     // Write your annotation here as a comment
+    /*
+    Reach for filter to work through the cakes array and return only those cake objects which have stock > 0
+    */
   },
 
   totalInventory() {
