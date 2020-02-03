@@ -45,11 +45,15 @@ const kittyPrompts = {
   sortByAge() {
     // Sort the kitties by their age
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties.sort((a, b) => b.age - a.age);
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    //
+    /*Access the kitties array and in particular we will be comparing the age properties.
+      Use sort prototype to get back an array that is ordered by descending age.
+      Since we want the order descending, we will tell the compare function to subtract a from b as this will put the higher value at a lower index.
+    */
   },
 
   growUp() {
@@ -66,7 +70,7 @@ const kittyPrompts = {
     // },
     // ...etc]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties.map(cat => 
     return result;
   }
 };
