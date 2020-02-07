@@ -718,11 +718,6 @@ const breweryPrompts = {
     // e.g.
     // { name: 'Barrel Aged Nature\'s Sweater', type: 'Barley Wine', abv: 10.9, ibu: 40 }
 
-    // const result = breweries.reduce((acc, brewery) => {
-    //   return (acc.abv > (brewery.beers.reduce((acc, beer => {
-    //     return (acc.abv > beer.abv) ? acc : beer;
-    //   }, {}))).abv) ? acc : brewery
-    // }, {});
     let allBeers = [];
     breweries.forEach(brewery => {
       brewery.beers.forEach(beer => {
@@ -784,9 +779,9 @@ const turingPrompts = {
       acc.push({
         name: instructor.name,
         studentCount: cohorts.find(cohort => {
-        return cohort.module === instructor.module
-      }).studentCount})
-      return acc
+          return cohort.module === instructor.module;
+        }).studentCount});
+      return acc;
     }, []);
     return result;
 
