@@ -697,11 +697,20 @@ const breweryPrompts = {
     // ...etc.
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = breweries.reduce((acc, brewery) => {
+      acc.push({
+        name: brewery.name,
+        beerCount: brewery.beers.length
+      });
+      return acc;
+    }, []);
     return result;
 
     // Annotation:
     // Write your annotation here as a comment
+    /*
+    Since I want an array back with objects that are structured different from the data set, I will reach for reduce.
+    */
   },
 
   findHighestAbvBeer() {
