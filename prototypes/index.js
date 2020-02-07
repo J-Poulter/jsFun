@@ -537,12 +537,17 @@ const weatherPrompts = {
     //   temperature: { high: 49, low: 38 }
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = weather.reduce((acc, city) => {
+      return (acc.humidity > city.humidity) ? acc : city;
+    }, {});
     return result;
 
     // Annotation:
     // Write your annotation here as a comment
-
+    /*
+    Since I will be wanting back only one object from my array, I will reach for reduce.
+    Within that reduce, I want to compare the humidity of each city to the next city and based on which is higher, assign it to the accumulator.
+    */
   }
 };
 
