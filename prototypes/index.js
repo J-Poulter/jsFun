@@ -718,7 +718,21 @@ const breweryPrompts = {
     // e.g.
     // { name: 'Barrel Aged Nature\'s Sweater', type: 'Barley Wine', abv: 10.9, ibu: 40 }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    // const result = breweries.reduce((acc, brewery) => {
+    //   return (acc.abv > (brewery.beers.reduce((acc, beer => {
+    //     return (acc.abv > beer.abv) ? acc : beer;
+    //   }, {}))).abv) ? acc : brewery
+    // }, {});
+    let allBeers = [];
+    breweries.forEach(brewery => {
+      brewery.beers.forEach(beer => {
+        allBeers.push(beer);
+      });
+    });
+
+    const result = allBeers.reduce((acc, beer) => {
+      return (acc.abv > beer.abv) ? acc : beer;
+    }, {});
     return result;
 
     // Annotation:
@@ -766,7 +780,14 @@ const turingPrompts = {
     //  { name: 'Robbie', studentCount: 18 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = instructors.reduce((acc, instructor) => {
+      acc.push({
+        name: instructor.name,
+        studentCount: cohorts.find(cohort => {
+        return cohort.module === instructor.module
+      }).studentCount})
+      return acc
+    }, []);
     return result;
 
     // Annotation:
