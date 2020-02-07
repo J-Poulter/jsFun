@@ -270,7 +270,7 @@ const cakePrompts = {
     // Annotation:
     // Write your annotation here as a comment
     /*
-
+    Since I will be wanting a single number being returned which accumulates the total amount of cakes inStock, I will be reaching for reduce.
     */
   },
 
@@ -291,6 +291,10 @@ const cakePrompts = {
 
     // Annotation:
     // Write your annotation here as a comment
+    /*
+    Since I will be wanting back a single element which is an array, I will be reaching for reduce.
+    In order to isolate the unique toppings, I need to set up a conditional that checks if that item exists in the array before pushing it.
+    */
   },
 
   groceryList() {
@@ -433,11 +437,20 @@ const bookPrompts = {
     //   'Catch-22', 'Treasure Island']
 
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = books.reduce((acc, book) => {
+      if (book.genre !== 'Horror' && book.genre !== 'True Crime') {
+        acc.push(book.title);
+      }
+      return acc;
+    }, []);
     return result;
 
     // Annotation:
     // Write your annotation here as a comment
+    /*
+    Since I will be wanting a single array back with a different length, I will reach for reduce.
+    Within that prototype, I need to establish a conditional which prevents the book from pushing to the array if it is either of the genres to be excluded.
+    */
 
   },
   getNewBooks() {
