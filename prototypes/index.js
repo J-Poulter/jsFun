@@ -635,11 +635,23 @@ const nationalParksPrompts = {
     //   'backpacking',
     //   'rock climbing' ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = nationalParks.reduce((acc, park) => {
+      park.activities.forEach(activity => {
+        if (!acc.includes(activity)) {
+          acc.push(activity);
+        }
+      });
+      return acc;
+    }, []);
     return result;
 
     // Annotation:
     // Write your annotation here as a comment
+    /*
+    Since I want a single array back, I will be reaching for reduce.
+    Within that reduce, I want to iterate over each park's activities so I will reach for forEach here.
+    I want to push the activity into the accumulator if it isn't already in there, so I will reach for includes to test this.
+    */
   }
 };
 
