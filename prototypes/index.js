@@ -355,11 +355,12 @@ const classPrompts = {
     //   { roomLetter: 'G', program: 'FE', capacity: 29 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = '';
     return result;
 
     // Annotation:
     // Write your annotation here as a comment
+
   },
 
   totalCapacities() {
@@ -370,11 +371,27 @@ const classPrompts = {
     //   beCapacity: 96
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = classrooms.reduce((acc, room) => {
+      if (room.program === 'FE') {
+        acc['feCapacity'] += room.capacity;
+      }
+      else {
+        acc['beCapacity'] += room.capacity;
+      }
+      return acc;
+    }, {
+      feCapacity: 0,
+      beCapacity: 0
+    });
     return result;
 
     // Annotation:
     // Write your annotation here as a comment
+    /*
+    Since we are inputting an array and wanting to get back a single object as the return value, we will want to reach for the reduce prototype.
+    When we iterate over the classrooms array, we want to access the program property within each of the objects.  We will check if that program exists as a property on our accumulator object, if it doesn't then we will create it and assign it the value of its capacity.
+    If it does exist, then we will add the capactiy of that object to the value in the accumulator property that matches the program type.
+    */
   },
 
   sortByCapacity() {
