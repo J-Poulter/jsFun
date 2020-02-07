@@ -516,11 +516,16 @@ const weatherPrompts = {
     // 'New Orleans, Louisiana is sunny.',
     // 'Raleigh, North Carolina is mostly sunny.' ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = weather.filter(city => city.type === 'sunny'
+    || city.type === 'mostly sunny').map(city => `${city.location} is ${city.type}.`);
     return result;
 
     // Annotation:
     // Write your annotation here as a comment
+    /*
+    Since I want my array to only contain some of the elements from the data inside it, I will reach for filter to establish the condition to filter them out by.
+    Next, I will be wanting an array of the same length but with the elements presented differently so I will reach for map.
+    */
   },
 
   findHighestHumidity() {
