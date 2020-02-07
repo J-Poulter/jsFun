@@ -113,9 +113,13 @@ const clubPrompts = {
     // }
 
     const result = clubs.reduce((acc, club) => {
-      acc[club].name;
-    },{});
-    return result;
+      club.members.forEach(member => {
+        if (!acc[member]) {
+          acc[member] = []
+        }
+        acc[member].push(club.club)
+      })
+    }, {});
 
     // Annotation:
     // Write your annotation here as a comment
@@ -255,6 +259,9 @@ const cakePrompts = {
 
     // Annotation:
     // Write your annotation here as a comment
+    /*
+
+    */
   },
 
   allToppings() {
