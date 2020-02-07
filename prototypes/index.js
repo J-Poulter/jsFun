@@ -674,11 +674,18 @@ const breweryPrompts = {
     // Return the total beer count of all beers for every brewery e.g.
     // 40
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = breweries.reduce((acc, brewery) => {
+      acc += brewery.beers.length;
+      return acc;
+    }, 0);
     return result;
 
     // Annotation:
     // Write your annotation here as a comment
+    /*
+    Since I want to keep a running count of the total number of beers there are, I will reach for reduce.
+    I will need to set the accumulator equal to the length of the beers array of each brewery.
+    */
   },
 
   getBreweryBeerCount() {
