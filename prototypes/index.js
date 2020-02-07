@@ -796,7 +796,12 @@ const turingPrompts = {
     // cohort1804: 10.5
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cohorts.reduce((acc, cohort) => {
+      acc[`cohort${cohort.cohort}`] = cohort.studentCount / instructors.filter(instructor => {
+        return instructor.module === cohort.module;
+      }).length;
+      return acc;
+    }, {});
     return result;
 
     // Annotation:
