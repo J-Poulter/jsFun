@@ -496,11 +496,17 @@ const weatherPrompts = {
     // return an array of all the average temperatures. Eg:
     // [ 40, 40, 44.5, 43.5, 57, 35, 65.5, 62, 14, 46.5 ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = weather.map(city => {
+      return (city.temperature.high + city.temperature.low) / 2;
+    });
     return result;
 
     // Annotation:
     // Write your annotation here as a comment
+    /*
+    Since I will be looking to get back an array of the same length, I will reach for map.
+    Within map, I will use dot notation to access each objects two temperatures to return the average.
+    */
   },
 
   findSunnySpots() {
