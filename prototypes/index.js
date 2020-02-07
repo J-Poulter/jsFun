@@ -76,7 +76,7 @@ const kittyPrompts = {
         age: cat.age += 2,
         color: cat.color
       };
-    }).sort((a, b) => b.age - a.age);
+    });
     return result;
   }
 };
@@ -115,14 +115,22 @@ const clubPrompts = {
     const result = clubs.reduce((acc, club) => {
       club.members.forEach(member => {
         if (!acc[member]) {
-          acc[member] = []
+          acc[member] = [];
         }
-        acc[member].push(club.club)
-      })
+        acc[member].push(club.club);
+      });
+      return acc;
     }, {});
-
+    return result;
     // Annotation:
     // Write your annotation here as a comment
+    /*
+    Since the original data type we are working with is an array and we need an object as the return value and only one, we will reach for the reduce prototype.
+    We need to isolate the unique member names to assign them to the property names of our object.
+    Next we will iterate through the member names and for each one, establish if that name exists as a property on our accumulator.
+    If it doesn't exist, assign it to our accumulator as a property name with an empty array as a value.  If it does exist, move on to next name.
+    Then I would iterate over those property names and for each one, use it in a filter prototype to find which objects those names exist in.  Return those objects so that we can push the club.value into the proper arrays.
+    */
   }
 };
 
@@ -254,7 +262,9 @@ const cakePrompts = {
     // Return the total amount of cakes in stock e.g.
     // 59
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.reduce((acc, cake) => {
+      return acc += cake.inStock;
+    }, 0);
     return result;
 
     // Annotation:
