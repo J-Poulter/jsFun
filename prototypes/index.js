@@ -307,10 +307,10 @@ const cakePrompts = {
     const result = cakes.reduce((acc, cake) => {
       cake.toppings.forEach(topping => {
         if (!acc[topping]) {
-          acc[topping] = 1
+          acc[topping] = 1;
         }
         else {
-          acc[topping] += 1
+          acc[topping] += 1;
         }
       });
       return acc;
@@ -319,6 +319,12 @@ const cakePrompts = {
 
     // Annotation:
     // Write your annotation here as a comment
+    /*
+    Since I am looking to get back a single element which will be an object, I will be reaching for the reduce prototype.
+    I will be iteratinig over the cakes array to access the topping array within each cake so that I can iterate over that array.
+    I will be reaching for the forEach prototype for that iteration so that I can see if that topping exists as a property name on our accumulator.
+    If it doesn't, then assign it as a property on the accumulator with its value set to 1.  If it does exist, then add one to the value of that property.
+    */
   }
 };
 
