@@ -569,11 +569,24 @@ const nationalParksPrompts = {
     //   parksVisited: ["Rocky Mountain", "Acadia", "Zion"]
     //}
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = nationalParks.reduce((acc, park) => {
+      if (park.visited === true) {
+        acc.parksVisited.push(park.name);
+      }
+      else {
+        acc.parksToVisit.push(park.name);
+      }
+      return acc;
+    }, {parksToVisit: [], parksVisited: []});
     return result;
 
     // Annotation:
     // Write your annotation here as a comment
+    /*
+    Since I will be wanting back one object from my array, I will reach for reduce.
+    My accumulator will be an object with two properties set equal to an empty array.
+    I will then push the name of the park into one of the two array based on the visited status.
+    */
   },
 
   getParkInEachState() {
@@ -585,12 +598,25 @@ const nationalParksPrompts = {
     // { Utah: 'Zion' },
     // { Florida: 'Everglades' } ]
 
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = nationalParks.map(park => {
+      return {
+        [park.location]: park.name
+      };
+    });
+    // const result = nationalParks.reduce((acc, park) => {
+    //   acc.push({
+    //     [park.location]: park.name
+    //   });
+    //   return acc;
+    // }, []);
     return result;
 
     // Annotation:
     // Write your annotation here as a comment
+    /*
+    Since I want an array of the same length back, reach for map.
+    Within map, have it return an object with the required property key value pairing.
+    */
   },
 
   getParkActivities() {
