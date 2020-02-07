@@ -355,12 +355,17 @@ const classPrompts = {
     //   { roomLetter: 'G', program: 'FE', capacity: 29 }
     // ]
 
-    const result = '';
+    const result = classrooms.filter(room => {
+      return room.program === 'FE';
+    });
     return result;
 
     // Annotation:
     // Write your annotation here as a comment
-
+    /*
+    Since we want back an array but with the objects inside of it to only be those which meet the specification,
+    then we will reach for the filter prototype.
+    */
   },
 
   totalCapacities() {
@@ -397,11 +402,15 @@ const classPrompts = {
   sortByCapacity() {
     // Return the array of classrooms sorted by their capacity (least capacity to greatest)
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = classrooms.sort((a, b) => a.capacity - b.capacity);
     return result;
 
     // Annotation:
     // Write your annotation here as a comment
+    /*
+    We will be rearranging the elements inside of our array based on some condition which is its capacity.
+    So we will be reaching for the filter prototype and since it's in ascending order, we will be using the a-b
+    */
   }
 };
 
