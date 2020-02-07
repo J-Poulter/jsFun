@@ -461,11 +461,23 @@ const bookPrompts = {
     //  { title: 'Life of Pi', year: 2001 },
     //  { title: 'The Curious Incident of the Dog in the Night-Time', year: 2003 }]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = books.reduce((acc, book) => {
+      if (book.published >= 1990) {
+        acc.push({
+          title: book.title,
+          year: book.published
+        });
+      }
+      return acc;
+    }, []);
     return result;
 
     // Annotation:
     // Write your annotation here as a comment
+    /*
+    Since I will be look to produce an array with the elements inside being different structured objects than the ones in the data set, I will be reaching for reduce.
+    I will establish my conditional and if it is met, I will push into the accumulator that object but in a format that meets the criteria.
+    */
   }
 
 };
