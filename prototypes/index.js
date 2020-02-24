@@ -822,8 +822,17 @@ const turingPrompts = {
     //     Christie: [1, 2, 3, 4],
     //     Will: [1, 2, 3, 4]
     //   }
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = instructors.reduce((acc, cur) => {
+      acc[cur.name] = cohorts.reduce((mods, cohort) => {
+        cur.teaches.forEach(topic => {
+          if (cohort.curriculum.includes(topic) && !mods.includes(cohort.module)) {
+            mods.push(cohort.module);
+          }
+        });
+        return mods;
+      }, []);
+      return acc;
+    }, {});
     return result;
 
     // Annotation:
@@ -840,9 +849,15 @@ const turingPrompts = {
     //   recursion: [ 'Pam', 'Leta' ]
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cohorts.reduce((acc, cur) => {
+      cur.curriculum.forEach(topic => {
+        if (!acc[topic]) {
+          acc[topic] = instructors.filter(instructor => instructor.teaches.includes(topic)).map(person => person.name);
+        }
+      });
+      return acc;
+    }, {});
     return result;
-
     // Annotation:
     // Write your annotation here as a comment
   }
@@ -874,8 +889,18 @@ const bossPrompts = {
     //   { bossName: 'Ursula', sidekickLoyalty: 20 },
     //   { bossName: 'Scar', sidekickLoyalty: 16 }
     // ]
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    let bossArr = Object.keys(bosses);
+    const result = bossArr.map(boss => {
+      return {
+        bossName: bosses[boss].name,
+        sidekickLoyalty: sidekicks.reduce((acc, cur) => {
+          if (cur.boss === bosses[boss].name) {
+            acc += cur.loyaltyToBoss;
+          }
+          return acc;
+        }, 0)
+      };
+    });
     return result;
 
     // Annotation:
@@ -916,8 +941,18 @@ const astronomyPrompts = {
     //     lightYearsFromEarth: 640,
     //     color: 'red' }
     // ]
+    let allConsts = Object.keys(constellations);
+    let allStars = allConsts.reduce((acc, cur) => {
+      constellations[cur].stars.forEach(star => acc.push(star));
+      return acc;
+    }, []);
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = allStars.reduce((acc, cur) => {
+      if (stars.find(star => star.name === cur) != undefined) {
+        acc.unshift(stars.find(star=> star.name === cur));
+      }
+      return acc;
+    }, []);
     return result;
 
     // Annotation:
@@ -935,7 +970,12 @@ const astronomyPrompts = {
     //   red: [{obj}]
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = stars.reduce((acc, cur) => {
+      if (!acc[cur.color]) {
+        acc[cur.color] = stars.filter(star=> star.color.includes(cur.color));
+      }
+      return acc;
+    }, {});
     return result;
 
     // Annotation:
@@ -956,8 +996,12 @@ const astronomyPrompts = {
     //    "Orion",
     //    "The Little Dipper" ]
 
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = stars.sort((a, b) => a.visualMagnitude - b.visualMagnitude).reduce((acc, cur) => {
+      if (cur.constellation != '') {
+        acc.push(cur.constellation);
+      }
+      return acc;
+    }, []);
     return result;
 
     // Annotation:
@@ -987,8 +1031,10 @@ const ultimaPrompts = {
 
     // Return the sum of the amount of damage for all the weapons that our characters can use
     // Answer => 113
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = characters.reduce((acc, cur) => {
+      cur.weapons.forEach(weapon => acc += weapons[weapon].damage);
+      return acc;
+    }, 0);
     return result;
 
     // Annotation:
@@ -1000,7 +1046,20 @@ const ultimaPrompts = {
     // Return the sum damage and total range for each character as an object.
     // ex: [ { Avatar: { damage: 27, range: 24 }, { Iolo: {...}, ...}
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = characters.map(character => {
+      return {
+        [character.name]: {
+          damage: character.weapons.reduce((acc, cur) => {
+            acc += weapons[cur].damage;
+            return acc;
+          }, 0),
+          range: character.weapons.reduce((acc, cur) => {
+            acc += weapons[cur].range;
+            return acc;
+          }, 0)
+        }
+      };
+    });
     return result;
 
     // Annotation:
@@ -1037,7 +1096,13 @@ const dinosaurPrompts = {
     //   'Jurassic World: Fallen Kingdom': 18
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = movies.reduce((acc, cur) => {
+      acc[cur.title] = cur.dinos.reduce((allAwe, dino) => {
+        if (dinosaurs[dino].isAwesome) {allAwe += 1;}
+        return allAwe;
+      }, 0);
+      return acc;
+    }, {});
     return result;
 
     // Annotation:
@@ -1069,8 +1134,17 @@ const dinosaurPrompts = {
           }
       }
     */
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = movies.reduce((acc, cur) => {
+      let avgAge = Math.floor(cur.cast.reduce((ageSum, actor) => {
+        ageSum += cur.yearReleased - humans[actor].yearBorn;
+        return ageSum;
+      }, 0) / cur.cast.length);
+      if (!acc[cur.director]) {
+        acc[cur.director] = {};
+      }
+      acc[cur.director][cur.title] = avgAge;
+      return acc;
+    }, {});
     return result;
 
     // Annotation:
@@ -1102,8 +1176,19 @@ const dinosaurPrompts = {
         imdbStarMeterRating: 0
       }]
     */
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    let allActors = Object.keys(humans);
+    const result = allActors.reduce((acc, cur) => {
+      let jurassicActors = [];
+      movies.forEach(movie => movie.cast.forEach(person => jurassicActors.push(person)));
+      if (!jurassicActors.includes(cur)) {
+        acc.push({
+          name: cur,
+          nationality: humans[cur].nationality,
+          imdbStarMeterRating: humans[cur].imdbStarMeterRating
+        });
+      }
+      return acc;
+    }, []).sort((a, b) => a.nationality.localeCompare(b.nationality));
     return result;
 
     // Annotation:
@@ -1125,8 +1210,13 @@ const dinosaurPrompts = {
       { name: 'Chris Pratt', ages: [ 36, 39 ] },
       { name: 'Bryce Dallas Howard', ages: [ 34, 37 ] } ]
     */
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    let allActors = Object.keys(humans);
+    const result = allActors.map(actor => {
+      return {
+        name: actor,
+        ages: movies.filter(movie => movie.cast.includes(actor)).map(mov => mov.yearReleased - humans[actor].yearBorn)
+      };
+    }).filter(oneMovie => oneMovie.ages != 0);
     return result;
 
     // Annotation:
